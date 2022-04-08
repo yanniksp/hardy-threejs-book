@@ -2,6 +2,7 @@ const canvas = document.querySelector("div.book");
 console.log(canvas);
 
 const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xffffff);
 const camera = new THREE.PerspectiveCamera(
   75,
   window.innerWidth / window.innerHeight,
@@ -34,7 +35,7 @@ const urls = [
 const loader = new THREE.TextureLoader();
 
 const material = urls.map((url) => {
-  return new THREE.MeshBasicMaterial({ map: loader.load(url) });
+  return new THREE.MeshStandardMaterial({ map: loader.load(url) });
 });
 
 const geometry = new THREE.BoxGeometry(4, 6.17, 0.6);

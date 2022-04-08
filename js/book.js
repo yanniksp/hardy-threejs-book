@@ -1,4 +1,4 @@
-const canvas = document.querySelector("section.book");
+const canvas = document.querySelector("div.book");
 console.log(canvas);
 
 const scene = new THREE.Scene();

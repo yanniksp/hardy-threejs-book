@@ -23,26 +23,29 @@ directionalLight.position.set(0, 0, 6);
 scene.add(directionalLight);
 
 // Texture
-const urls = [
-  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6250b9632ec86461ca6b55c3_right.png",
-  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6250b9643b567d278cc915ea_left.png",
-  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6250bc43363baf31093fd97a_top.png",
-  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6250b96398308e0dbcd814a8_bottom.png",
-  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6250b9642ac18df17c72bbbf_front.png",
-  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6250bc4466c242f02ed704de_Back.png",
-];
+// const urls = [
+//   "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6250b9632ec86461ca6b55c3_right.png",
+//   "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6250b9643b567d278cc915ea_left.png",
+//   "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6250bc43363baf31093fd97a_top.png",
+//   "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6250b96398308e0dbcd814a8_bottom.png",
+//   "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6250b9642ac18df17c72bbbf_front.png",
+//   "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6250bc4466c242f02ed704de_Back.png",
+// ];
+
+// const material = urls.map((url) => {
+//   return new THREE.MeshBasicMaterial({ map: loader.load(url) });
+// });
 
 const loader = new THREE.TextureLoader();
 
-const material = urls.map((url) => {
-  return new THREE.MeshStandardMaterial({ map: loader.load(url) });
-});
+material.opacity = 0.5;
+material.transparent = true;
 
 const geometry = new THREE.BoxGeometry(4, 6.17, 0.6);
 const cube = new THREE.Mesh(geometry, material);
 scene.add(cube);
 
-camera.position.z = 8;
+camera.position.z = 9;
 
 function animate() {
   requestAnimationFrame(animate);

@@ -52,19 +52,67 @@ const roughnessTexture = textureLoader.load(
   "/assets/Door_Wood_001_roughness.jpg"
 );
 
-// Object
+// Book textures
+const bookFrontColorTexture = textureLoader.load(
+  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6251ff7283aa8c856e358a9f_book-front-color.png"
+);
 
-const geometry = new THREE.BoxGeometry(4, 6.17, 0.6);
-const material = new THREE.MeshBasicMaterial({ map: colorTexture });
-const mesh = new THREE.Mesh(geometry, material);
-scene.add(mesh);
+const bookFrontMetalnessTexture = textureLoader.load(
+  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6251ff72204a1c25bd738ca0_book-front-metal.png"
+);
+
+const bookBackColorTexture = textureLoader.load(
+  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6251ff72204a1cc084738ca1_book-back.png"
+);
+
+const bookBackMetalnessTexture = textureLoader.load(
+  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6251ff72ff84da4741b70b96_book-back-metal.png"
+);
+
+const bookFrontNormalTexture = textureLoader.load(
+  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6252014b53e47c032b3022ec_book-front-normal-map.png"
+);
+
+const bookFrontDisplacementTexture = textureLoader.load(
+  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6252014b53e47cd5983022eb_book-front-displacement.png"
+);
+
+//Change minFilter for sharper edges
+colorTexture.minFilter = THREE.NearestFilter;
+colorTexture.magFilter = THREE.NearestFilter;
+
+//Material for all objects
+// const material = new THREE.MeshBasicMaterial();
+// const material = new THREE.MeshNormalMaterial();
+
+//Good! -> Very shiny
+// const material = new THREE.MeshPhongMaterial();
+// material.shininess = 100;
+
+const material = new THREE.MeshStandardMaterial();
+material.metalness = 0.5;
+
+material.map = bookFrontColorTexture;
+// material.wireframe = true;
+// material.opacity = 0.5;
+// material.transparent = true;
+
+// Objects
+
+// 01 book
+const bookGeometry = new THREE.BoxGeometry(4, 6.17, 0.6);
+// const material = new THREE.MeshBasicMaterial({ map: colorTexture });
+const book = new THREE.Mesh(bookGeometry, material);
+
+//Add everything to scene
+scene.add(book);
 
 camera.position.z = 8;
 
 function animate() {
   requestAnimationFrame(animate);
-  mesh.rotation.x += 0.00005;
-  mesh.rotation.y += 0.001;
+  book.rotation.x += 0.00005;
+  book.rotation.y += 0.01;
   renderer.render(scene, camera);
 }
 animate();

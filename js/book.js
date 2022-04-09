@@ -36,21 +36,22 @@ scene.add(directionalLight);
 //   return new THREE.MeshBasicMaterial({ map: loader.load(url) });
 // });
 
-const loader = new THREE.TextureLoader();
+const textureLoader = new THREE.TextureLoader();
+const colorTexture = textureLoader.load("/assets/Door_Wood_001_basecolor.jpg");
 
-material.opacity = 0.5;
-material.transparent = true;
+// Object
 
 const geometry = new THREE.BoxGeometry(4, 6.17, 0.6);
-const cube = new THREE.Mesh(geometry, material);
-scene.add(cube);
+const material = new THREE.MeshBasicMaterial({ map: colorTexture });
+const mesh = new THREE.Mesh(geometry, material);
+scene.add(mesh);
 
-camera.position.z = 9;
+camera.position.z = 8;
 
 function animate() {
   requestAnimationFrame(animate);
-  // cube.rotation.x += 0.005;
-  cube.rotation.y += 0.01;
+  mesh.rotation.x += 0.00005;
+  mesh.rotation.y += 0.001;
   renderer.render(scene, camera);
 }
 animate();

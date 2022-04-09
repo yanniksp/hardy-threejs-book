@@ -36,8 +36,21 @@ scene.add(directionalLight);
 //   return new THREE.MeshBasicMaterial({ map: loader.load(url) });
 // });
 
+// Load all textures using the texture loader
 const textureLoader = new THREE.TextureLoader();
 const colorTexture = textureLoader.load("/assets/Door_Wood_001_basecolor.jpg");
+const alphaTexture = textureLoader.load("/assets/Door_Wood_001_opacity.jpg");
+const heightTexture = textureLoader.load("/assets/Door_Wood_001_height.png");
+const normalTexture = textureLoader.load("/assets/Door_Wood_001_normal.jpg");
+const ambientTexture = textureLoader.load(
+  "/assets/Door_Wood_001_ambientOcclusion.jpg"
+);
+const metalnessTexture = textureLoader.load(
+  "/assets/Door_Wood_001_metallic.jpg"
+);
+const roughnessTexture = textureLoader.load(
+  "/assets/Door_Wood_001_roughness.jpg"
+);
 
 // Object
 

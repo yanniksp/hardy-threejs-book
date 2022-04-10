@@ -171,9 +171,10 @@ const tick = () => {
 
   const timelinePosition = window.pageYOffset / 3000;
 
-  const rx = timelinePosition * Math.pi * 2;
-  const ry = timelinePosition * Math.pi * 2;
-  book.rotation.set(rx, ry, 0);
+  const rx = timelinePosition * -0.2 + 0.2;
+  const ry = (timelinePosition * 0.9 + 0.1) * Math.PI * 2;
+  const rz = timelinePosition * -0.1 + 0.1;
+  book.rotation.set(rx, ry, rz);
 
   // Render
   renderer.render(scene, camera);

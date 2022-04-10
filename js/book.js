@@ -174,9 +174,9 @@ const tick = () => {
 
   timelinePosition = (aimTimelinePosition - timelinePosition) * 0.01;
 
-  const rx = timelinePosition * -0.2 + 0.2;
-  const ry = (timelinePosition * 0.9 + 0.1) * Math.PI * 2;
-  const rz = timelinePosition * 0.1 - 0.1;
+  const rx = timelinePosition * -0.2 - 0.1;
+  const ry = (timelinePosition * 0.9 + 0.04) * Math.PI * 2;
+  const rz = timelinePosition * 0.1 + 0.1;
   book.rotation.set(rx, ry, rz);
 
   // Render

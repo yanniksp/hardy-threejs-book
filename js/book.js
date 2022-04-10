@@ -166,8 +166,13 @@ const clock = new THREE.Clock();
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
 
-  book.rotation.y = 0.1 * elapsedTime;
+  // book.rotation.y = 0.1 * elapsedTime;
   // book.rotation.x = 0.015 * elapsedTime;
+
+  const timelinePosition = window.pageYOffset / 3000;
+
+  const rx = timelinePosition;
+  book.rotation.set(rx, 0, 0);
 
   // Render
   renderer.render(scene, camera);

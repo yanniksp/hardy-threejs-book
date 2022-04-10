@@ -8,9 +8,12 @@ body {
   overflow: hidden;
 }
 
-/* .book {
-  height: 100vh;
-  width: 100vw;
+/* body {
+  min-height: 3000px;
+  height: 3000px;
+}
+
+.book {
   background-color: bisque;
   position: fixed;
   top: 0;

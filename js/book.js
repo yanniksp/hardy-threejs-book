@@ -14,43 +14,19 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 canvas.appendChild(renderer.domElement);
 
-// Lighting
-const ambientLight = new THREE.AmbientLight(0x404040); // soft white light
+/**
+ * Lights
+ */
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-directionalLight.position.set(0, 0, 6);
-scene.add(directionalLight);
-
-// Texture
-// const urls = [
-//   "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6250b9632ec86461ca6b55c3_right.png",
-//   "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6250b9643b567d278cc915ea_left.png",
-//   "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6250bc43363baf31093fd97a_top.png",
-//   "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6250b96398308e0dbcd814a8_bottom.png",
-//   "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6250b9642ac18df17c72bbbf_front.png",
-//   "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6250bc4466c242f02ed704de_Back.png",
-// ];
-
-// const material = urls.map((url) => {
-//   return new THREE.MeshBasicMaterial({ map: loader.load(url) });
-// });
-
-// Load all textures using the texture loader
+const light = new THREE.PointLight(0xffffff, 0.5);
+light.position.x = 2;
+light.position.y = 0;
+light.position.z = 4;
+scene.add(light);
+// Textures
 const textureLoader = new THREE.TextureLoader();
-const colorTexture = textureLoader.load("/assets/Door_Wood_001_basecolor.jpg");
-const alphaTexture = textureLoader.load("/assets/Door_Wood_001_opacity.jpg");
-const heightTexture = textureLoader.load("/assets/Door_Wood_001_height.png");
-const normalTexture = textureLoader.load("/assets/Door_Wood_001_normal.jpg");
-const ambientTexture = textureLoader.load(
-  "/assets/Door_Wood_001_ambientOcclusion.jpg"
-);
-const metalnessTexture = textureLoader.load(
-  "/assets/Door_Wood_001_metallic.jpg"
-);
-const roughnessTexture = textureLoader.load(
-  "/assets/Door_Wood_001_roughness.jpg"
-);
 
 // Book textures
 const bookFrontColorTexture = textureLoader.load(
@@ -77,22 +53,75 @@ const bookFrontDisplacementTexture = textureLoader.load(
   "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6252014b53e47cd5983022eb_book-front-displacement.png"
 );
 
-//Change minFilter for sharper edges
-colorTexture.minFilter = THREE.NearestFilter;
-colorTexture.magFilter = THREE.NearestFilter;
+// Sides
 
-//Material for all objects
-// const material = new THREE.MeshBasicMaterial();
-// const material = new THREE.MeshNormalMaterial();
+const bookLeftSideColorTexture = textureLoader.load(
+  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6252d15c094532581821ded9_book-left-side.jpg"
+);
 
-//Good! -> Very shiny
-// const material = new THREE.MeshPhongMaterial();
-// material.shininess = 100;
+const bookRightSideColorTexture = textureLoader.load(
+  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6252d15d60d80a36ad550201_right.jpg"
+);
 
-const material = new THREE.MeshStandardMaterial();
-material.metalness = 0.5;
+const bookTopColorTexture = textureLoader.load(
+  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6252d15cb8515cb7e4478e03_book-top.jpg"
+);
 
-material.map = bookFrontColorTexture;
+const bookBottomColorTexture = textureLoader.load(
+  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6252d15c8387b9f560ac0e8e_book-bottom.jpg"
+);
+
+const bookRightSideNormalTexture = textureLoader.load(
+  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6252d15c89808e779dc682c3_normal-map-right.jpeg"
+);
+
+const bookTopNormalTexture = textureLoader.load(
+  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6252d15c349cbeff5b50987a_normal-map-top-bottom.jpeg"
+);
+
+const bookBottomNormalTexture = textureLoader.load(
+  "https://uploads-ssl.webflow.com/624ee00c6c94893ddfff4251/6252d1f24231763e2f6d49c6_normal-map-bottom.jpeg"
+);
+
+// Book Materials
+
+// Load all materials
+const leftSideMaterial = new THREE.MeshStandardMaterial();
+leftSideMaterial.map = bookLeftSideColorTexture;
+leftSideMaterial.roughness = 0.4;
+
+const rightSideMaterial = new THREE.MeshStandardMaterial();
+rightSideMaterial.map = bookRightSideColorTexture;
+rightSideMaterial.roughness = 1;
+
+const frontMaterial = new THREE.MeshStandardMaterial();
+frontMaterial.map = bookFrontColorTexture;
+frontMaterial.roughness = 0.4;
+
+const backMaterial = new THREE.MeshStandardMaterial();
+backMaterial.map = bookBackColorTexture;
+backMaterial.roughness = 0.4;
+
+const topMaterial = new THREE.MeshStandardMaterial();
+topMaterial.map = bookTopColorTexture;
+topMaterial.roughness = 1;
+
+const bottomMaterial = new THREE.MeshStandardMaterial();
+bottomMaterial.map = bookBottomColorTexture;
+bottomMaterial.roughness = 1;
+
+const material = [
+  rightSideMaterial,
+  leftSideMaterial,
+  topMaterial,
+  bottomMaterial,
+  frontMaterial,
+  backMaterial,
+];
+
+// material.normalMap = bookFrontNormalTexture;
+// material.displacementMap = bookFrontDisplacementTexture;
+
 // material.wireframe = true;
 // material.opacity = 0.5;
 // material.transparent = true;

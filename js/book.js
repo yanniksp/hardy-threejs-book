@@ -172,7 +172,7 @@ const tick = () => {
   // book.rotation.y = 0.1 * elapsedTime;
   // book.rotation.x = 0.015 * elapsedTime;
 
-  timelinePosition = (aimTimelinePosition - timelinePosition) * 0.01;
+  timelinePosition = (aimTimelinePosition - timelinePosition) * 0.1;
 
   const rx = timelinePosition * -0.2 - 0.1;
   const ry = (timelinePosition * 0.9 + 0.04) * Math.PI * 2;

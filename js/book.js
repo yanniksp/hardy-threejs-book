@@ -163,13 +163,16 @@ scene.add(camera);
  */
 const clock = new THREE.Clock();
 
+let timelinePosition = window.pageYOffset / 3000;
+let aimTimelinePosition = window.pageYOffset / 3000;
+
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
 
   // book.rotation.y = 0.1 * elapsedTime;
   // book.rotation.x = 0.015 * elapsedTime;
 
-  const timelinePosition = window.pageYOffset / 3000;
+  timelinePosition = (aimTimelinePosition - timelinePosition) * 0.01;
 
   const rx = timelinePosition * -0.2 + 0.2;
   const ry = (timelinePosition * 0.9 + 0.1) * Math.PI * 2;
@@ -184,3 +187,9 @@ const tick = () => {
 };
 
 tick();
+
+// For Smooth Scrolling
+
+window.addEventListener("scroll", () => {
+  aimTimelinePosition = window.pageYOffset / 3000;
+});

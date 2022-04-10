@@ -155,7 +155,7 @@ const camera = new THREE.PerspectiveCamera(
 );
 camera.position.x = -3;
 camera.position.y = 0;
-camera.position.z = 6;
+camera.position.z = 8;
 scene.add(camera);
 
 /**
@@ -167,7 +167,7 @@ const tick = () => {
   const elapsedTime = clock.getElapsedTime();
 
   book.rotation.y = 0.1 * elapsedTime;
-  book.rotation.x = 0.015 * elapsedTime;
+  // book.rotation.x = 0.015 * elapsedTime;
 
   // Render
   renderer.render(scene, camera);

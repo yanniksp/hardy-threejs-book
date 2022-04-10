@@ -3,12 +3,6 @@ console.log(canvas);
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xffffff);
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -119,15 +113,6 @@ const material = [
   backMaterial,
 ];
 
-// material.normalMap = bookFrontNormalTexture;
-// material.displacementMap = bookFrontDisplacementTexture;
-
-// material.wireframe = true;
-// material.opacity = 0.5;
-// material.transparent = true;
-
-// Objects
-
 // 01 book
 const bookGeometry = new THREE.BoxGeometry(4, 6.17, 0.6);
 // const material = new THREE.MeshBasicMaterial({ map: colorTexture });
@@ -136,12 +121,59 @@ const book = new THREE.Mesh(bookGeometry, material);
 //Add everything to scene
 scene.add(book);
 
-camera.position.z = 8;
+/**
+ * Sizes
+ */
+const sizes = {
+  width: window.innerWidth,
+  height: window.innerHeight,
+};
 
-function animate() {
-  requestAnimationFrame(animate);
-  book.rotation.x += 0.00005;
-  book.rotation.y += 0.01;
+window.addEventListener("resize", () => {
+  // Update sizes
+  sizes.width = window.innerWidth;
+  sizes.height = window.innerHeight;
+
+  // Update camera
+  camera.aspect = sizes.width / sizes.height;
+  camera.updateProjectionMatrix();
+
+  // Update renderer
+  renderer.setSize(sizes.width, sizes.height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+});
+
+/**
+ * Camera
+ */
+// Base camera
+const camera = new THREE.PerspectiveCamera(
+  75,
+  sizes.width / sizes.height,
+  0.1,
+  100
+);
+camera.position.x = -3;
+camera.position.y = 0;
+camera.position.z = 6;
+scene.add(camera);
+
+/**
+ * Animate
+ */
+const clock = new THREE.Clock();
+
+const tick = () => {
+  const elapsedTime = clock.getElapsedTime();
+
+  book.rotation.y = 0.1 * elapsedTime;
+  book.rotation.x = 0.015 * elapsedTime;
+
+  // Render
   renderer.render(scene, camera);
-}
-animate();
+
+  // Call tick again on the next frame
+  window.requestAnimationFrame(tick);
+};
+
+tick();

@@ -4,7 +4,7 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xffffff);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
 canvas.appendChild(renderer.domElement);
 
 /**

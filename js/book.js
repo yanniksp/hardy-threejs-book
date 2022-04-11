@@ -140,6 +140,9 @@ window.addEventListener("resize", () => {
   sizes.width = canvas.offsetWidth;
   sizes.height = canvas.offsetHeight;
 
+  console.log(canvas.offsetWidth);
+  console.log(canvas.offsetHeight);
+
   // Update camera
   camera.aspect = sizes.width / sizes.height;
   camera.updateProjectionMatrix();
@@ -198,5 +201,4 @@ tick();
 
 window.addEventListener("scroll", () => {
   aimTimelinePosition = window.pageYOffset / 3000;
-  console.log(aimTimelinePosition);
 });

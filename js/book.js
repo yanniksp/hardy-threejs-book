@@ -1,5 +1,4 @@
 const canvas = document.querySelector("div.book");
-console.log(canvas);
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0xffffff);
@@ -14,11 +13,18 @@ canvas.appendChild(renderer.domElement);
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 
-const light = new THREE.PointLight(0xffffff, 0.5);
-light.position.x = 2;
-light.position.y = 0;
-light.position.z = 4;
-scene.add(light);
+const pointLight = new THREE.PointLight(0xffffff, 0.5);
+pointLight.position.x = 2;
+pointLight.position.y = 0;
+pointLight.position.z = 4;
+scene.add(pointLight);
+
+const rectAreaLight = new THREE.RectAreaLight(0xffffff, 0.5, 6, 6);
+rectAreaLight.position.x = 2;
+rectAreaLight.position.y = 0;
+rectAreaLight.position.z = 4;
+scene.add(rectAreaLight);
+
 // Textures
 const textureLoader = new THREE.TextureLoader();
 
@@ -80,7 +86,7 @@ const bookBottomNormalTexture = textureLoader.load(
 // Book Materials
 
 // Load all materials
-const leftSideMaterial = new THREE.MeshStandardMaterial();
+const leftSideMaterial = new THREE.MeshPhysicalMaterial();
 leftSideMaterial.map = bookLeftSideColorTexture;
 leftSideMaterial.roughness = 0.4;
 
@@ -92,11 +98,11 @@ const frontMaterial = new THREE.MeshStandardMaterial();
 frontMaterial.map = bookFrontColorTexture;
 frontMaterial.roughness = 0.4;
 
-const backMaterial = new THREE.MeshStandardMaterial();
+const backMaterial = new THREE.MeshPhysicalMaterial();
 backMaterial.map = bookBackColorTexture;
 backMaterial.roughness = 0.4;
 
-const topMaterial = new THREE.MeshStandardMaterial();
+const topMaterial = new THREE.MeshPhysicalMaterial();
 topMaterial.map = bookTopColorTexture;
 topMaterial.roughness = 1;
 
@@ -125,14 +131,14 @@ scene.add(book);
  * Sizes
  */
 const sizes = {
-  width: window.innerWidth,
-  height: window.innerHeight,
+  width: canvas.offsetWidth,
+  height: canvas.offsetHeight,
 };
 
 window.addEventListener("resize", () => {
   // Update sizes
-  sizes.width = window.innerWidth;
-  sizes.height = window.innerHeight;
+  sizes.width = canvas.offsetWidth;
+  sizes.height = canvas.offsetHeight;
 
   // Update camera
   camera.aspect = sizes.width / sizes.height;

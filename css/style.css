@@ -9,12 +9,13 @@ body {
 }
 
 .book {
-  background-color: bisque;
   position: fixed;
   top: 0;
   left: 0;
   outline: none;
   z-index: 1;
+  height: 100vh;
+  width: 100vw;
 }
 
 .content-wrapper {

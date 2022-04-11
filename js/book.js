@@ -1,9 +1,10 @@
 const canvas = document.querySelector("div.book");
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xffffff);
+// scene.background = new THREE.Color(0xffffff);
 
-const renderer = new THREE.WebGLRenderer({ antialias: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+renderer.setClearColor(0x000000, 0); // the default
 renderer.setSize(canvas.offsetWidth, canvas.offsetHeight);
 canvas.appendChild(renderer.domElement);
 
